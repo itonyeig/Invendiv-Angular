@@ -1,10 +1,11 @@
 <div class="container">
   <div class="left">
     <img class="logo" src="assets/logo.png" alt="Logo" />
-    <!-- <a routerLink="/home" routerLinkActive="active">Home</a> -->
     <a routerLink="/products" routerLinkActive="active">Products</a>
     <div class="cart">
-      <a routerLink="/cart" routerLinkActive="active">Cart</a>
+      <a routerLink="/cart" routerLinkActive="active">
+        Cart <span class="cartCount">{{ cartItemCount$ | async }}</span>
+      </a>
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CartService } from './cart.service';
 import { CartItemI } from './cart.interface';
 
@@ -20,7 +20,7 @@ export class CartComponent implements OnInit {
 
   constructor(private cartService: CartService, private fb: FormBuilder) {
     this.discountForm = this.fb.group({
-      discountCode: ['']
+      discountCode: ['', Validators.required]
     });
   }
 
@@ -41,6 +41,13 @@ export class CartComponent implements OnInit {
   }
 
   applyDiscount(): void {
+    // Mark the discount code field as touched to trigger validation if empty
+    this.discountForm.get('discountCode')?.markAsTouched();
+    if (this.discountForm.invalid) {
+      this.discountError = 'Discount code is required';
+      return;
+    }
+
     const code = this.discountForm.get('discountCode')?.value.trim().toUpperCase();
     this.discountError = '';
     this.discountValue = 0;

@@ -8,6 +8,22 @@
   border-bottom: 2px solid #818285;
 }
 
+.cartCount {
+  position: absolute;
+  top: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #e91e63;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .left {
   display: flex;
   align-items: center;

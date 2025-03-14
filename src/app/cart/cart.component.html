@@ -51,7 +51,9 @@
         </div>
       </form>
       <div *ngIf="discountError" class="error">{{ discountError }}</div>
-
+      <div *ngIf="discountForm.get('discountCode')?.touched && discountForm.get('discountCode')?.invalid" class="error">
+        Discount code is required.
+      </div>
       <div class="total">
         <strong>Total:</strong> {{ total | currency:'USD' }}
       </div>
