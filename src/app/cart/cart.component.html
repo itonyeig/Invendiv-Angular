@@ -1,0 +1,60 @@
+<div class="cart-container">
+  <h2>My Cart</h2>
+
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    Your cart is empty.
+  </div>
+
+  <div *ngIf="cartItems.length > 0">
+    <!-- Cart Items Table -->
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th>Subtotal</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td class="product-info">
+            <img [src]="item.product.image" [alt]="item.product.title" class="cart-image">
+            <span>{{ item.product.title }}</span>
+          </td>
+          <td>{{ item.product.price | currency:'USD' }}</td>
+          <td>
+            <!-- Using a template reference variable to avoid inline casting -->
+            <input type="number" #qty [value]="item.quantity" min="0"
+              (change)="updateQuantity(item.product.id, qty.value)" />
+          </td>
+          <td>{{ item.product.price * item.quantity | currency:'USD' }}</td>
+          <td>
+            <button (click)="removeItem(item.product.id)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Cart Summary & Discount Section -->
+    <div class="cart-summary">
+      <div class="subtotal">
+        <strong>Subtotal:</strong> {{ subtotal | currency:'USD' }}
+      </div>
+
+      <!-- Wrap the discount input in a form to use reactive forms -->
+      <form [formGroup]="discountForm" class="discount-form">
+        <div class="discount">
+          <input type="text" formControlName="discountCode" placeholder="Enter discount code">
+          <button type="button" (click)="applyDiscount()">Apply Discount</button>
+        </div>
+      </form>
+      <div *ngIf="discountError" class="error">{{ discountError }}</div>
+
+      <div class="total">
+        <strong>Total:</strong> {{ total | currency:'USD' }}
+      </div>
+    </div>
+  </div>
+</div>

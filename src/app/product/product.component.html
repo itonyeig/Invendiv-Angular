@@ -1,0 +1,49 @@
+
+
+<div class="container" *ngIf="products$ | async as products; else loading">
+  <!-- Filters Form -->
+  <form [formGroup]="filterForm" class="filters">
+    <!-- Search Input -->
+    <input type="text" placeholder="Search product" formControlName="search" />
+
+    <!-- Category Dropdown -->
+    <select formControlName="category">
+      <option value="">All Categories</option>
+      <option *ngFor="let cat of (categories$ | async)" [value]="cat">
+        {{ cat }}
+      </option>
+    </select>
+  </form>
+
+<ng-container *ngIf="cartItems$ | async as cartItems">
+  <!-- Product List -->
+  <ul class="products">
+    <li class="product-item" *ngFor="let product of products">
+      <div class="product">
+        <div class="product-details">
+          <img [src]="getImageUrl(product)" [alt]="product.title" />
+          <div class="product-info">
+            <div class="name">{{ product.title }}</div>
+            <div class="description">{{ product.description }}</div>
+            <div class="category">Part Type: {{ product.category }}</div>
+          </div>
+        </div>
+        <div class="price">
+          <div>
+            {{ product.price | currency:"USD" }}
+          </div>
+          <button class="cta" (click)="cartButtonClicked(product)">
+            {{ isProductInCart(product.id, cartItems) ? 'In Cart' : 'Add To Cart' }}
+          </button>
+
+
+        </div>
+      </div>
+    </li>
+  </ul>
+</ng-container>
+</div>
+
+<ng-template #loading>
+  <div>Fetching Products...</div>
+</ng-template>
