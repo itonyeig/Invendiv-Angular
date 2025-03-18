@@ -98,6 +98,7 @@ export class ProductComponent implements OnInit {
   cartButtonClicked(product: ProductI): void {
     this.cartService.addToCart(product, 1);
   }
+  
   isProductInCart(productId: number, cartItems: CartItemI[] | null): boolean {
   if (!cartItems) return false;
   return cartItems.some(item => item.product.id === productId);

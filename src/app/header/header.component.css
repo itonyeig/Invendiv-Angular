@@ -11,8 +11,8 @@
 .cartCount {
   position: absolute;
   top: -8px;
-  ight: -10px; /* original offset */
-  transform: translateX(5px); /* moves it 5px to the right */
+  right: -10px;
+  transform: translateX(5px);
   width: 24px;
   height: 24px;
   border-radius: 50%;
